@@ -2,11 +2,11 @@ package compiler.tree.expressao;
 
 import compiler.tree.Tipo;
 
-public class ExpUnaria implements Expressao {
+public class ExprUnaria implements Expressao {
 	private Expressao expr;
 	private String operacao;
 
-	public ExpUnaria(String operacao, Expressao expr) {
+	public ExprUnaria(String operacao, Expressao expr) {
 		this.operacao = operacao;
 		this.expr = expr;
 	}

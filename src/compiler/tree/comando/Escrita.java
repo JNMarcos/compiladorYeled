@@ -1,12 +1,13 @@
 package compiler.tree.comando;
 
-import compiler.tree.Tipo;
+import java.util.List;
+
 import compiler.tree.expressao.Expressao;
 
 public class Escrita implements Comando {
-	private Expressao expressao;
+	private List<Expressao> expressao;
 
-	public Escrita(Expressao expressao) {
+	public Escrita(List<Expressao> expressao) {
 		this.expressao = expressao;
 	}
 

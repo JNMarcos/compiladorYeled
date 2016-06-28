@@ -1,6 +1,5 @@
 package compiler.tree.comando;
 
-import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
 
 public class Decisao implements Comando {

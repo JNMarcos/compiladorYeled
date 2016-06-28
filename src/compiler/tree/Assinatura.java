@@ -1,8 +1,6 @@
 package compiler.tree;
 
 import java.util.LinkedList;
-import java.util.List;
-
 import compiler.tree.comando.DeclVariavel;
 
 public class Assinatura {
@@ -10,16 +8,16 @@ public class Assinatura {
 	private Tipo tipo;
 	private String identificador;
 
-	public Assinatura(String identificar,
+	public Assinatura(String identificador,
 			LinkedList<DeclVariavel> paramFormais, Tipo tipo) {
 		this.paramFormais = paramFormais;
 		this.tipo = tipo;
-		this.identificador = identificar;
+		this.identificador = identificador;
 	}
 
-	public Assinatura(String identificar, LinkedList<DeclVariavel> paramFormais) {
+	public Assinatura(String identificador, LinkedList<DeclVariavel> paramFormais) {
 		this.paramFormais = paramFormais;
-		this.identificador = identificar;
+		this.identificador = identificador;
 	}
 
 	public Boolean verificarSemantica() {
