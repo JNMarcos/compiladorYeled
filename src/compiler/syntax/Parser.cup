@@ -119,7 +119,7 @@ decl_variavel ::= tipo:t lista_idents:lid PONTO_VIRGULA
 
 lista_idents ::= IDENTIFICADOR:id resto_lista_idents:rlids
 				{:
-					rlids.addLast(id);
+					rlids.addFirst(id);
 					RESULT = rlids;
 				:} 
              ;
@@ -127,7 +127,7 @@ lista_idents ::= IDENTIFICADOR:id resto_lista_idents:rlids
 
 resto_lista_idents ::=  VIRGULA IDENTIFICADOR:id resto_lista_idents:rlids
 					{:
-						rlids.addLast(id);
+						rlids.addFirst(id);
 						RESULT = rlids;
 					:}
                      |  /* vazio */
@@ -241,7 +241,7 @@ comando  ::= decl_variavel:v
            
 atribuicao ::= IDENTIFICADOR:id ATRIBUICAO expressao:exp PONTO_VIRGULA 
                {:   
-               		RESULT = new Atibuicao(id, exp);   
+               		RESULT = new Atribuicao(id, exp);   
                :}
 				;    
 				       

@@ -3,6 +3,7 @@
  */
 package compiler.syntax;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
@@ -20,8 +21,10 @@ public class Lexer implements Scanner {
 
 	//iniciand o lexer com as palavras-chaves reconhecidas
 	// pelo compilador e nextChar = -1
-	public Lexer(){
+	public Lexer(FileInputStream arquivo){
 		this.nextChar = -1;
+		
+		palavras_reservadas = new Hashtable<>();
 		palavras_reservadas.put("if", sym.SE);
 		palavras_reservadas.put("then", sym.ENTAO);
 		palavras_reservadas.put("else", sym.SENAO);
@@ -35,6 +38,13 @@ public class Lexer implements Scanner {
 		palavras_reservadas.put("and", sym.E);
 		palavras_reservadas.put("or", sym.OU);
 		palavras_reservadas.put("not", sym.NAO);
+		
+		try {
+			this.reset(arquivo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void reset(InputStream in) throws Exception {

@@ -1,5 +1,7 @@
 package compiler.tree.expressao;
 
+import Semantica.TabelaSimbolosGeral;
+import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 
 public class ExprLogica implements Expressao {
@@ -14,17 +16,26 @@ public class ExprLogica implements Expressao {
 	}
 	
 	@Override
-	public Boolean verificarSemantica() {
-		return null;
-	}
-
-	@Override
-	public Tipo getTipo() {
-		return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean retornoLogicaOK = false;
+		if (operLogico == "and" || operLogico == "or"){
+			if (exp1.getTipo(tabela) == Tipo.BOOLEAN && exp2.getTipo(tabela) == Tipo.BOOLEAN){
+				retornoLogicaOK = true;
+			} else {
+				throw new LeituraException("Não é um tipo boolean um dos argumentos.");
+			}
+		}
+		return retornoLogicaOK;
 	}
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
+		return null;
+	}
+
+	@Override
+	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

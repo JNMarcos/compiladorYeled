@@ -1,5 +1,7 @@
 package compiler.tree.expressao;
 
+import Semantica.TabelaSimbolosGeral;
+import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 
 public class ExprUnaria implements Expressao {
@@ -13,18 +15,18 @@ public class ExprUnaria implements Expressao {
 
 	
 	@Override
-	public Boolean verificarSemantica() {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
+		return null;
+	}
+	
+	public String gerarCodigoIntermediario(String filename) {
 		return null;
 	}
 
+
 	@Override
-	public Tipo getTipo() {
-		return null;
-	}
-	
-	
-	
-	public String gerarCodigoIntermediario(String filename) {
+	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
