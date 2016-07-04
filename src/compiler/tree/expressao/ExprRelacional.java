@@ -1,6 +1,6 @@
 package compiler.tree.expressao;
 
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 
@@ -17,8 +17,29 @@ public class ExprRelacional implements Expressao {
 	}
 	
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-		return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean exprRelacionalOK = true;
+		switch (operador){
+		case ">":
+		case "<":
+		case ">=":
+		case "<=":
+			if ((expr1.getTipo(tabela) == Tipo.INT && expr2.getTipo(tabela) == Tipo.FLOAT)
+					|| (expr1.getTipo(tabela) == Tipo.FLOAT && expr2.getTipo(tabela) == Tipo.INT)){
+				exprRelacionalOK = false;
+				throw new LeituraException("Os tipos das variáveis na expressão relacional " +
+				expr1 + "  " + operador + "  " + expr2 + " são diferentes.");
+			}
+			break;
+		case "==":
+		case "!=":
+			if (expr1.getTipo(tabela) != expr2.getTipo(tabela)){
+				exprRelacionalOK = false;
+				throw new LeituraException("Os tipos das variáveis na expressão relacional " +
+				expr1 + "  " + operador + "  " + expr2 + " são diferentes.");
+			}
+		}
+		return exprRelacionalOK;
 	}
 	
 	@Override

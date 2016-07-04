@@ -3,10 +3,9 @@ package compiler.tree.comando;
 import java.util.ArrayList;
 import java.util.List;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolos;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
-import compiler.tree.Tipo;
 
 
 public class Bloco implements Comando {
@@ -39,12 +38,6 @@ public class Bloco implements Comando {
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
-		return null;
-	}
-
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

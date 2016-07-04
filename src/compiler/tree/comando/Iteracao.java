@@ -1,7 +1,6 @@
 package compiler.tree.comando;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
@@ -18,21 +17,15 @@ public class Iteracao implements Comando {
 
 	@Override
 	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
-		boolean retornoIteracao = false;
+		boolean iteracaoOK = false;
 		if (expressao.getTipo(tabela) == Tipo.BOOLEAN){
-			retornoIteracao = true;
+			iteracaoOK = true;
 		}
-		return retornoIteracao;
+		return iteracaoOK;
 	}
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
 		return null;
 	}
-
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		return null; 
-	}
-
 }

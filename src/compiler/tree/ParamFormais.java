@@ -2,10 +2,10 @@ package compiler.tree;
 
 import java.util.LinkedList;
 
-import Semantica.InfoSimbolo;
-import Semantica.InfoVariavel;
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.InfoSimbolo;
+import compiler.semantica.InfoVariavel;
+import compiler.semantica.TabelaSimbolos;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.comando.DeclVariavel;
 
@@ -24,6 +24,10 @@ public class ParamFormais {
 		paramFormais.addLast(d);
 	}
 	
+	public LinkedList<DeclVariavel> getParamFormais(){
+		return paramFormais;
+	}
+	
 	public Boolean verificarSemantica(TabelaSimbolosGeral tabela, TabelaSimbolos tabelaLocal) throws LeituraException{
 		boolean retornoParametrosOK = false;
 		InfoSimbolo simbolo;
@@ -32,7 +36,8 @@ public class ParamFormais {
 				simbolo = new InfoVariavel(paramFormais.get(i).getTipo());
 				retornoParametrosOK = tabelaLocal.adicionarSimbolo(paramFormais.get(i).getIdents().get(j), simbolo);
 				if (retornoParametrosOK == false){
-					throw new LeituraException("");
+					throw new LeituraException("O parâmetro " + paramFormais.get(i).getIdents().get(j)
+							+ " já existe.");
 				}
 			}
 		}

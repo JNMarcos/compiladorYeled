@@ -2,10 +2,10 @@ package compiler.tree.comando;
 
 import java.util.LinkedList;
 
-import Semantica.InfoSimbolo;
-import Semantica.InfoVariavel;
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.InfoSimbolo;
+import compiler.semantica.InfoVariavel;
+import compiler.semantica.TabelaSimbolos;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.DeclGlobal;
 import compiler.tree.Tipo;
@@ -37,9 +37,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 		return tipo;
 	}
 
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) 
-			throws LeituraException{
+	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException{
 		boolean retornoDeclaracaoOK = false;
 		InfoSimbolo simbolo;
 		for(int i = 0; i < this.idents.size(); i++ ){ 
@@ -65,6 +63,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 		InfoSimbolo info;
 		
 		for(int i = 0; i < this.idents.size(); i++ ){ 
+			//só verifica no escopo geral
 			if(tabela.verificarExistenciaSimbolo(this.idents.get(i)) == false){ 
 				info = new InfoVariavel(this.tipo); 
 				tabela.adicionarSimboloGlobal(idents.get(i), info);

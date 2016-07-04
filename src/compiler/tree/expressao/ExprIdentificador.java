@@ -1,8 +1,8 @@
 package compiler.tree.expressao;
 
-import Semantica.InfoSimbolo;
-import Semantica.InfoVariavel;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.InfoSimbolo;
+import compiler.semantica.InfoVariavel;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 

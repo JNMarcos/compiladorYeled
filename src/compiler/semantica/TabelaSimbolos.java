@@ -1,4 +1,4 @@
-package Semantica;
+package compiler.semantica;
 
 import java.util.Hashtable;
 
@@ -36,7 +36,7 @@ public class TabelaSimbolos {
 	public boolean verificarExistenciaSimbolo(String identificador){
 		boolean existeSimbolo = true;
 		//passa o identificador, se retornar null é porque não existe e pode usá-lo
-			if (this.getTabela().get(identificador).equals(null)){
+			if (this.getTabela().get(identificador) == null){
 				existeSimbolo = false;
 		}
 		return existeSimbolo;

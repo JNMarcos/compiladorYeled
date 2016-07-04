@@ -1,6 +1,6 @@
 package compiler.tree.expressao;
 
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 
@@ -17,10 +17,30 @@ public class ExprAritmetica implements Expressao {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-			return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean exprAritmOK = true;
+		switch(operacao){
+		case "+":
+		case "-":
+		case "*":
+		case "/":
+			if (exp1.getTipo(tabela) != exp2.getTipo(tabela)){
+				exprAritmOK = false;
+				throw new LeituraException("Os tipos da(s) variável(is) é diferente de inteiro. "
+						+ exp1 + "  " + operacao + "  " + exp2);	
+			}
+			break;
+		case "%":
+			if (exp1.getTipo(tabela) != Tipo.INT && exp2.getTipo(tabela) != Tipo.INT){
+				exprAritmOK = false;
+				throw new LeituraException("Os tipos da(s) variável(is) é diferente de inteiro. "
+						+ exp1 + "  " + operacao + "  " + exp2);
+			}
+			break;
+		}
+		return exprAritmOK;
 	}
-	
+
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
 		return null;

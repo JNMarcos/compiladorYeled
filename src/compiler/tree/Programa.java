@@ -2,7 +2,7 @@ package compiler.tree;
 
 import java.util.LinkedList;
 
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.comando.DeclVariavel;
 

@@ -1,9 +1,9 @@
 package compiler.tree.comando;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.InfoSimbolo;
+import compiler.semantica.InfoVariavel;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
-import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
 
 public class Atribuicao implements Comando {
@@ -17,30 +17,24 @@ public class Atribuicao implements Comando {
 
 	@Override
 	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
-		if (tabela.buscarSimbolo2(identificador) 
-				== this.expressao.getTipo(tabela)) { 
-		} else { 
+		boolean atribuicaoOK = false;
+		InfoSimbolo info = tabela.buscarSimbolo(identificador);
+		if (info != null && info instanceof InfoVariavel){
+			if (((InfoVariavel) info).getTipo() == this.expressao.getTipo(tabela)) {
+				atribuicaoOK = true;
+			} else { 
+				atribuicaoOK = false;
 				throw new LeituraException("Tipo incorreto!"); 
-		} 
-
-		return null;
+			} 
+		} else {
+			atribuicaoOK = false;
+			throw new LeituraException("Tipo incorreto!"); 
+		}
+		return atribuicaoOK;
 	}
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
 		return null;
 	}
-
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		// TODO Auto-generated method stub
-		if (tabelaSimbolos.buscarTabelaLocal(identificador) 
-				== this.expressao.getTipo(tabela)) { 
-		} else { 
-			verif = false; 
-			throw new CompiladorException("Tipo incorreto!"); 
-		} 
-		return null;
-	}
-
 }

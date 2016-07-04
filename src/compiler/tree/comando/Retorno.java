@@ -1,8 +1,8 @@
 package compiler.tree.comando;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
+import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
 
 public class Retorno implements Comando {
@@ -13,19 +13,18 @@ public class Retorno implements Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-		return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean retornoOK = true;
+		Tipo tipo = expressao.getTipo(tabela);
+		if (tipo == Tipo.NULL){
+			retornoOK = false;
+			throw new LeituraException("Tipo do retorno está null!");
+		}
+		return retornoOK;
 	}
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
 		return null;
 	}
-
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

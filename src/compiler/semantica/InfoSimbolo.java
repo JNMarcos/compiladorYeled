@@ -1,7 +1,7 @@
 /**
  * 
  */
-package Semantica;
+package compiler.semantica;
 
 /**
  * @author JN

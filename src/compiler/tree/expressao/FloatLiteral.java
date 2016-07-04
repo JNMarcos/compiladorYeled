@@ -1,6 +1,6 @@
 package compiler.tree.expressao;
 
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 
@@ -14,7 +14,11 @@ public class FloatLiteral implements Expressao {
 	
 	@Override
 	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-		return null;
+		boolean floatLiteralOK = true;
+		if (floatLiteral == null){
+			floatLiteralOK = false;
+		}
+		return floatLiteralOK;
 	}
 
 	@Override

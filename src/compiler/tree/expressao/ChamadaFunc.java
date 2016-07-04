@@ -2,8 +2,10 @@ package compiler.tree.expressao;
 
 import java.util.LinkedList;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.InfoFuncao;
+import compiler.semantica.InfoSimbolo;
+import compiler.semantica.InfoVariavel;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 import compiler.tree.Tipo;
 import compiler.tree.comando.Comando;
@@ -18,8 +20,29 @@ public class ChamadaFunc implements Expressao, Comando {
 	}
 	
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-		return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean chamadaOK = true;
+		InfoSimbolo info = tabela.buscarSimbolo(identificador); 
+		if (info instanceof InfoVariavel){
+			throw new LeituraException("Não é uma função, é uma variável.");
+		} else if (info instanceof InfoFuncao){
+			if (listaExprs.size() != ((InfoFuncao) info).getParametrosFuncao().size()){
+				throw new LeituraException("Os parâmetros não coincidem.");
+			} else {
+				InfoFuncao infoF;
+				for (int i = 0; i < listaExprs.size(); i++){
+					infoF = (InfoFuncao) ((InfoFuncao)info).getParametrosFuncao().get(i);
+					if (listaExprs.get(i).getTipo(tabela) != infoF.getTipoRetorno()){
+						chamadaOK = false;
+						throw new LeituraException("Um dos tipos " + identificador + " não corresponde.");
+					}
+				}
+			}
+			
+		} else {
+			throw new LeituraException("Deu ruim.");
+		}
+		return chamadaOK;
 	}
 	
 	@Override
@@ -28,14 +51,8 @@ public class ChamadaFunc implements Expressao, Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

@@ -1,7 +1,6 @@
 package compiler.tree;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
 
 public interface DeclGlobal {

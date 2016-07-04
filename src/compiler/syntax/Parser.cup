@@ -204,9 +204,9 @@ lista_comandos ::= lista_comandos:lcom comando:com
                  ;		
                  
 		
-comando  ::= decl_variavel:v
+comando  ::= decl_variavel:dv
 			{:
-				RESULT = v;
+				RESULT = dv;
 			:}
            | atribuicao:atr
 			{:
@@ -294,7 +294,7 @@ chamada_func ::= IDENTIFICADOR:id ABRE_PARENTESE lista_exprs:lexp FECHA_PARENTES
 			
 lista_exprs ::= expressao:exp resto_lista_exprs:rlexp
 				{:
-					rlexp.addLast(exp);
+					rlexp.addFirst(exp);
 					RESULT = rlexp;
 				:}
               | /*vazio*/  

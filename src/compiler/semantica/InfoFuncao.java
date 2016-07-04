@@ -1,4 +1,4 @@
-package Semantica;
+package compiler.semantica;
 
 import java.util.LinkedList;
 import java.util.List;

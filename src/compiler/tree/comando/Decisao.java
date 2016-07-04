@@ -1,8 +1,8 @@
 package compiler.tree.comando;
 
-import Semantica.TabelaSimbolos;
-import Semantica.TabelaSimbolosGeral;
+import compiler.semantica.TabelaSimbolosGeral;
 import compiler.syntax.LeituraException;
+import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
 
 public class Decisao implements Comando {
@@ -28,19 +28,23 @@ public class Decisao implements Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) {
-		return null;
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+		boolean decisaoOK = false;
+		if (expressao.getTipo(tabela) == Tipo.BOOLEAN){
+			decisaoOK = comandoIf.verificarSemantica(tabela);
+			// se há um else
+			if (comandoElse != null){
+				decisaoOK = comandoElse.verificarSemantica(tabela);
+			}
+		} else {
+			decisaoOK = false;
+			throw new LeituraException("A " + expressao + " não é do tipo boolean.");
+		}
+		return decisaoOK;
 	}
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
 		return null;
 	}
-
-	@Override
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
