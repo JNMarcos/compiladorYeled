@@ -3,13 +3,19 @@
  */
 package compiler.semantica;
 
+import java.io.Serializable;
+
 import compiler.tree.Tipo;
 
 /**
  * @author JN
  *
  */
-public class InfoVariavel implements InfoSimbolo{
+public class InfoVariavel implements InfoSimbolo, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Tipo tipo;
 	
 	public InfoVariavel(Tipo tipo){
@@ -48,6 +54,10 @@ public class InfoVariavel implements InfoSimbolo{
 			return false;
 		}
 		return true;
+	}
+	
+	public int compareTo(InfoVariavel v){
+		return this.getTipo().compareTo(v.getTipo());
 	}
 	
 	

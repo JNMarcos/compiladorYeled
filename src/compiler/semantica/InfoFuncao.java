@@ -1,11 +1,16 @@
 package compiler.semantica;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import compiler.tree.Tipo;
 
-public class InfoFuncao implements InfoSimbolo{
+public class InfoFuncao implements InfoSimbolo, Serializable{
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		private Tipo tipoRetorno;
 		private LinkedList<InfoSimbolo> parametrosFuncao;
 		
@@ -59,6 +64,10 @@ public class InfoFuncao implements InfoSimbolo{
 				return false;
 			}
 			return true;
+		}
+		
+		public int compareTo(InfoFuncao f){
+			return this.getTipoRetorno().compareTo(f.getTipoRetorno());
 		}
 		
 		

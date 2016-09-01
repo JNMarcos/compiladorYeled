@@ -1,7 +1,7 @@
 package compiler.tree.comando;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.Tipo;
 import compiler.tree.expressao.Expressao;
 
@@ -28,7 +28,7 @@ public class Decisao implements Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		boolean decisaoOK = false;
 		if (expressao.getTipo(tabela) == Tipo.BOOLEAN){
 			decisaoOK = comandoIf.verificarSemantica(tabela);
@@ -38,7 +38,7 @@ public class Decisao implements Comando {
 			}
 		} else {
 			decisaoOK = false;
-			throw new LeituraException("A " + expressao + " não é do tipo boolean.");
+			throw new ErroCompiladorException("A " + expressao + " não é do tipo boolean.");
 		}
 		return decisaoOK;
 	}

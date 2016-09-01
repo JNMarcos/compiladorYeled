@@ -3,7 +3,7 @@ package compiler.tree;
 import java.util.LinkedList;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.comando.DeclVariavel;
 
 public class Programa {
@@ -19,7 +19,7 @@ public class Programa {
 		this.declaracoes.addLast(dec);
 	}
 	
-	public Boolean verificarSemantica() throws LeituraException{
+	public Boolean verificarSemantica() throws ErroCompiladorException{
 		boolean retorno = false;
 		for (int i = 0; i < declaracoes.size(); i++){
 			if (declaracoes.get(i) instanceof DeclFuncao){

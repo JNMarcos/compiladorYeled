@@ -7,27 +7,27 @@ import compiler.semantica.InfoSimbolo;
 import compiler.semantica.InfoVariavel;
 import compiler.semantica.TabelaSimbolos;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.comando.DeclVariavel;
 
 public class Assinatura {
-	private ParamFormais paramFormais;
+	private LinkedList<DeclVariavel> paramFormais;
 	private Tipo tipo;
 	private String identificador;
 
 	public Assinatura(String identificador,
-			ParamFormais paramFormais, Tipo tipo) {
+			LinkedList<DeclVariavel> paramFormais, Tipo tipo) {
 		this.paramFormais = paramFormais;
 		this.tipo = tipo;
 		this.identificador = identificador;
 	}
 
-	public Assinatura(String identificador, ParamFormais paramFormais) {
+	public Assinatura(String identificador, LinkedList<DeclVariavel> paramFormais) {
 		this.paramFormais = paramFormais;
 		this.identificador = identificador;
 	}
 
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		boolean retornoEscopoGlobal = false;
 		boolean retornoEscopoLocal = false;
 		InfoVariavel infoV;
@@ -36,28 +36,28 @@ public class Assinatura {
 		
 		InfoFuncao info;
 
-		for (int i = 0; i < paramFormais.getParamFormais().size(); i++){
-			infoV = new InfoVariavel(paramFormais.getParamFormais().get(i).getTipo());
+		for (int i = 0; i < paramFormais.size(); i++){
+			infoV = new InfoVariavel(paramFormais.get(i).getTipo());
 				simbolos.add(infoV);
 		}
 		
 		for (int i = 0; i < simbolos.size(); i++){
-			for (int j = 0; j < paramFormais.getParamFormais().get(i).getIdents().size(); j++){
+			for (int j = 0; j < paramFormais.get(i).getIdents().size(); j++){
 				//verifica apenas no escopo global
 				retornoEscopoGlobal = tabela.verificarExistenciaSimbolo(identificador);
 				
 				if (retornoEscopoGlobal == false){
 					//verifica se parâmetro existe
-					retornoEscopoLocal = this.paramFormais.verificarSemantica(tabela, tabelaLocal);
+					retornoEscopoLocal = this.paramFormais.get(j).verificarSemantica(tabelaLocal);
 							
 							//tabelaLocal.adicionarSimbolo(paramFormais.get(i).getIdents().get(j),
 							//simbolos.get(i));
 					if (retornoEscopoLocal == false) {//param já existe
-						throw new LeituraException("Parâmetro " + paramFormais.getParamFormais().get(i).getIdents().
+						throw new ErroCompiladorException("Parâmetro " + paramFormais.get(i).getIdents().
 								get(j) + " já existe.");
 					}
 				} else {
-					throw new LeituraException("A assinatura de método " + this.identificador 
+					throw new ErroCompiladorException("A assinatura de método " + this.identificador 
 							+  " já existe.");
 				}
 			}

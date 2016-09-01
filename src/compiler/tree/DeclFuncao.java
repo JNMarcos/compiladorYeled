@@ -1,8 +1,7 @@
 package compiler.tree;
 
-import compiler.semantica.TabelaSimbolos;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.comando.Bloco;
 
 public class DeclFuncao implements DeclGlobal {
@@ -15,7 +14,7 @@ public class DeclFuncao implements DeclGlobal {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException{
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException{
 		boolean retornoAssinaturaOK = false;
 		boolean retornoBlocoOK = false;
 		

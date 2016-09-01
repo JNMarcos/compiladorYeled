@@ -1,9 +1,9 @@
 package compiler.tree.comando;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 
 public interface Comando {
-	Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException;
+	Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException;
 	String gerarCodigoIntermediario(String filename);
 }

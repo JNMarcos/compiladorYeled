@@ -5,7 +5,7 @@ import java.util.List;
 
 import compiler.semantica.TabelaSimbolos;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 
 
 public class Bloco implements Comando {
@@ -24,7 +24,7 @@ public class Bloco implements Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException{
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException{
 		boolean retornoComandosOK = false;
 		for (int i = 0; i < comandos.size(); i++){
 			retornoComandosOK = comandos.get(i).verificarSemantica(tabela);

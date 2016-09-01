@@ -1,8 +1,10 @@
 package compiler.tree.comando;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.Tipo;
+import compiler.tree.expressao.ExprLogica;
+import compiler.tree.expressao.ExprRelacional;
 import compiler.tree.expressao.Expressao;
 
 public class Iteracao implements Comando {
@@ -16,7 +18,7 @@ public class Iteracao implements Comando {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		boolean iteracaoOK = false;
 		if (expressao.getTipo(tabela) == Tipo.BOOLEAN){
 			iteracaoOK = true;
@@ -26,6 +28,17 @@ public class Iteracao implements Comando {
 
 	@Override
 	public String gerarCodigoIntermediario(String filename) {
+		boolean x;
+		ExprLogica expr;
+		if (expressao instanceof ExprRelacional){
+			x = ((ExprRelacional) expressao).expr1.toString(); ((ExprRelacional) expressao).operador
+		} 
+		
+		if 
+		labelInicio:
+			x = (ExprLogica)expressao expressao.expr1
+			if 
+		labelResto:
 		return null;
 	}
 }

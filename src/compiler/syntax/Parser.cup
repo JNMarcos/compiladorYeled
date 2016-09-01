@@ -6,8 +6,24 @@ import compiler.tree.*;
 import compiler.tree.expressao.*;
 import compiler.tree.comando.*;
 
-/*****  Terminais (tokens) *****/
 
+
+parser code {:
+
+  public void syntax_error(Symbol cur_token) {
+	 System.out.printf("Erro de sintaxe na linha %d, coluna %d (token tipo %d inesperado). \n",
+			 cur_token.left, cur_token.right, cur_token.sym);
+  }
+  public void unrecovered_syntax_error(Symbol cur_token) throws Exception {
+	 done_parsing();
+	 String msg = "Erro de sintaxe na linha " + cur_token.left + ", coluna " + cur_token.right 
+			 + " (token tipo " + cur_token.sym + " inesperado).";
+	 throw new Exception(msg);
+  }
+
+:}
+
+/*****  Terminais (tokens) *****/
 terminal String IDENTIFICADOR;
     
 terminal String    IGUAL;
@@ -50,6 +66,7 @@ terminal Tipo      PONTO_FLUTUANTE;
 terminal Tipo      CARACTERE;
 terminal Object    PRINTAR;
 terminal Tipo      VOID;
+terminal Tipo 	   NULL
 
 
 /***** Nao-terminais *****/
@@ -62,7 +79,7 @@ non terminal 	LinkedList<String>		resto_lista_idents;
 non terminal 	Tipo					tipo;
 non terminal 	DeclFuncao				decl_funcao;
 non terminal 	Assinatura				assinatura;
-non terminal 	LinkedList<DeclVariavel> param_formais;
+non terminal 	LinkedList<DeclVariavel>            param_formais;
 non terminal 	LinkedList<DeclVariavel> resto_param_formais;
 non terminal 	Bloco					bloco;
 non terminal 	LinkedList<Comando>		lista_comandos;
@@ -173,7 +190,7 @@ param_formais ::= resto_param_formais:rparam IDENTIFICADOR:id DOIS_PONTOS tipo:t
                 ;	
                 	
 		
-resto_param_formais ::= resto_param_formais:rparam VIRGULA IDENTIFICADOR:id DOIS_PONTOS 
+resto_param_formais ::= resto_param_formais:rparam VIRGULA IDENTIFICADOR:id DOIS_PONTOS tipo:t
 						{:
 							rparam.addLast(new DeclVariavel(id, t));
 							RESULT = rparam;

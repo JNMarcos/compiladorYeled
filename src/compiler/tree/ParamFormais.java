@@ -6,7 +6,7 @@ import compiler.semantica.InfoSimbolo;
 import compiler.semantica.InfoVariavel;
 import compiler.semantica.TabelaSimbolos;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.comando.DeclVariavel;
 
 public class ParamFormais {
@@ -28,7 +28,7 @@ public class ParamFormais {
 		return paramFormais;
 	}
 	
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela, TabelaSimbolos tabelaLocal) throws LeituraException{
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela, TabelaSimbolos tabelaLocal) throws ErroCompiladorException{
 		boolean retornoParametrosOK = false;
 		InfoSimbolo simbolo;
 		for (int i = 0; i < paramFormais.size(); i++){
@@ -36,7 +36,7 @@ public class ParamFormais {
 				simbolo = new InfoVariavel(paramFormais.get(i).getTipo());
 				retornoParametrosOK = tabelaLocal.adicionarSimbolo(paramFormais.get(i).getIdents().get(j), simbolo);
 				if (retornoParametrosOK == false){
-					throw new LeituraException("O parâmetro " + paramFormais.get(i).getIdents().get(j)
+					throw new ErroCompiladorException("O parâmetro " + paramFormais.get(i).getIdents().get(j)
 							+ " já existe.");
 				}
 			}

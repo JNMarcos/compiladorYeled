@@ -4,6 +4,6 @@ public enum Tipo {
 	INT, 
 	CHAR, 
 	FLOAT,
-	NULL, //verificar necessidade deposi
+	NULL, //uso interno
 	BOOLEAN //para uso interno
 }

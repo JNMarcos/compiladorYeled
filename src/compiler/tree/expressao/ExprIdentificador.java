@@ -3,7 +3,7 @@ package compiler.tree.expressao;
 import compiler.semantica.InfoSimbolo;
 import compiler.semantica.InfoVariavel;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.Tipo;
 
 public class ExprIdentificador implements Expressao {
@@ -24,7 +24,7 @@ public class ExprIdentificador implements Expressao {
 	}
 
 	@Override
-	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Tipo getTipo(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		Tipo tipoRetorno = Tipo.NULL; 
 		InfoSimbolo info;
 		
@@ -39,9 +39,13 @@ public class ExprIdentificador implements Expressao {
 				tipoRetorno = ((InfoVariavel) info).getTipo();
 			}
 		}else{ 
-			throw new LeituraException("O identificador " + identificador + " não existe!"); 
+			throw new ErroCompiladorException("O identificador " + identificador + " não existe!"); 
 		} 
 		return tipoRetorno; 
 	}
 
+	@Override
+	public String toString() {
+		return identificador;
+	}
 }

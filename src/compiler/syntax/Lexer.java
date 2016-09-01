@@ -55,25 +55,25 @@ public class Lexer implements Scanner {
 			this.nextChar = in.read();
 
 		} catch (IOException e) {
-			throw new LeituraException(e.getMessage());
+			throw new ErroCompiladorException(e.getMessage());
 		}
 	}
 
-	private int readByte() throws LeituraException {
+	private int readByte() throws ErroCompiladorException {
 		int theByte;
 
 		try {
 			theByte = input.read();
 		} catch (IOException e) {
-			throw new LeituraException(e.getMessage());
+			throw new ErroCompiladorException(e.getMessage());
 		}
 
 		return theByte;
 	}
 
-	public Symbol next_token() throws LeituraException {
+	public Symbol next_token() throws ErroCompiladorException {
 		StringBuilder lexema = new StringBuilder();
-		int tipo = -1;
+		int tipo = 0; 
 
 		while (this.nextChar == ' ' || this.nextChar == '\n' || this.nextChar == '\t'
 				|| this.nextChar == '\r'){
@@ -102,22 +102,22 @@ public class Lexer implements Scanner {
 			} while (Character.isDigit(nextChar));
 
 			if (nextChar == '.'){
-				tipo = sym.PONTO_FLUTUANTE;
+				tipo = sym.FLOAT_LITERAL;
 				do {
 					lexema.append((char)nextChar);
 					nextChar = this.readByte();
 				} while (Character.isDigit(nextChar));
 			} else if (nextChar == ' '){
-				tipo = sym.INTEIRO;
+				tipo = sym.INT_LITERAL;
 			} else {
-				throw new LeituraException("Caracter inesperado: " + (char)nextChar);
+				throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 			}
 		} else{
 
 
 			switch(nextChar){
 			case '.':
-				tipo = sym.PONTO_FLUTUANTE;
+				tipo = sym.FLOAT_LITERAL;
 				do {
 					lexema.append((char)nextChar);
 					nextChar = this.readByte();
@@ -125,7 +125,7 @@ public class Lexer implements Scanner {
 				break;
 
 			case '\'':
-				tipo = sym.CARACTERE;
+				tipo = sym.CHAR_LITERAL;
 				lexema.append((char)nextChar);
 				nextChar = this.readByte();
 				if (Character.isDigit(nextChar) ||
@@ -137,7 +137,7 @@ public class Lexer implements Scanner {
 					nextChar = this.readByte();
 
 					if (nextChar != '\''){
-						throw new LeituraException("Caracter inesperado: " + (char)nextChar);
+						throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 					}
 
 				} else if (nextChar == '\\'){
@@ -149,10 +149,10 @@ public class Lexer implements Scanner {
 						nextChar = this.readByte();
 
 						if (nextChar != '\''){
-							throw new LeituraException("Caracter inesperado: " + (char)nextChar);
+							throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 						}
 					} else {
-						throw new LeituraException("Caracter inesperado: " + (char)nextChar);
+						throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 					}				
 				}
 				break;
@@ -276,13 +276,12 @@ public class Lexer implements Scanner {
 					tipo = sym.DIFERENTE;
 					this.nextChar = readByte();
 				} else {
-					//deveria retornar uma exceção pois se vier qualquer outro símbolo
-					// ou caractere em branco está incorreto
+					throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 				}	
 				break;
 				
 			default:
-				throw new LeituraException("Caracter inesperado: " + (char)nextChar);
+				throw new ErroCompiladorException("Caracter inesperado: " + (char)nextChar);
 			}
 		}
 		return new Symbol(tipo, lexema.toString());

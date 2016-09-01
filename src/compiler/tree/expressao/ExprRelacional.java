@@ -1,14 +1,14 @@
 package compiler.tree.expressao;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.Tipo;
 
 public class ExprRelacional implements Expressao {
 
-	private Expressao expr1;
-	private Expressao expr2;
-	private String operador;
+	public Expressao expr1;
+	public Expressao expr2;
+	public String operador;
 
 	public ExprRelacional(Expressao expr1, Expressao expr2, String operador) {
 		this.expr1 = expr1;
@@ -17,7 +17,7 @@ public class ExprRelacional implements Expressao {
 	}
 	
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		boolean exprRelacionalOK = true;
 		switch (operador){
 		case ">":
@@ -27,7 +27,7 @@ public class ExprRelacional implements Expressao {
 			if ((expr1.getTipo(tabela) == Tipo.INT && expr2.getTipo(tabela) == Tipo.FLOAT)
 					|| (expr1.getTipo(tabela) == Tipo.FLOAT && expr2.getTipo(tabela) == Tipo.INT)){
 				exprRelacionalOK = false;
-				throw new LeituraException("Os tipos das variáveis na expressão relacional " +
+				throw new ErroCompiladorException("Os tipos das variáveis na expressão relacional " +
 				expr1 + "  " + operador + "  " + expr2 + " são diferentes.");
 			}
 			break;
@@ -35,7 +35,7 @@ public class ExprRelacional implements Expressao {
 		case "!=":
 			if (expr1.getTipo(tabela) != expr2.getTipo(tabela)){
 				exprRelacionalOK = false;
-				throw new LeituraException("Os tipos das variáveis na expressão relacional " +
+				throw new ErroCompiladorException("Os tipos das variáveis na expressão relacional " +
 				expr1 + "  " + operador + "  " + expr2 + " são diferentes.");
 			}
 		}
@@ -48,9 +48,14 @@ public class ExprRelacional implements Expressao {
 	}
 
 	@Override
-	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Tipo getTipo(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public String toString() {
+		return expr1 + " " + operador + " " + expr2;
 	}
 
 }

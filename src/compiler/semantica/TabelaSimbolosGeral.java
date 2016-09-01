@@ -66,8 +66,12 @@ public class TabelaSimbolosGeral {
 		InfoSimbolo info = null;
 
 		//começa da última posição, pois é o mais recente, é uma pilha
-		for (int i = this.tabela.size() - 1; i >= 0; --i){
+		for (int i = this.tabela.size() - 1; i >= 0; i--){
 			info = tabela.get(i).getTabela().get(identificador);
+			
+			if (info != null){
+				break;
+			}
 		}
 		return info;
 	}

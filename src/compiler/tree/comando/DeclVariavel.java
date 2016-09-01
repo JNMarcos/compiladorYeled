@@ -6,7 +6,7 @@ import compiler.semantica.InfoSimbolo;
 import compiler.semantica.InfoVariavel;
 import compiler.semantica.TabelaSimbolos;
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.DeclGlobal;
 import compiler.tree.Tipo;
 
@@ -37,7 +37,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 		return tipo;
 	}
 
-	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws LeituraException{
+	public Boolean verificarSemantica(TabelaSimbolos tabelaLocal) throws ErroCompiladorException{
 		boolean retornoDeclaracaoOK = false;
 		InfoSimbolo simbolo;
 		for(int i = 0; i < this.idents.size(); i++ ){ 
@@ -46,7 +46,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 				tabelaLocal.adicionarSimbolo(idents.get(i), simbolo); 
 			} else{ 
 				retornoDeclaracaoOK = false; 
-				throw new LeituraException("O identificador "+ this.idents.get(i) + " já foi declarado."); 
+				throw new ErroCompiladorException("O identificador "+ this.idents.get(i) + " já foi declarado."); 
 			} 
 		} 
 		return retornoDeclaracaoOK;
@@ -58,7 +58,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 	}
 
 	@Override
-	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Boolean verificarSemantica(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		boolean retornoDeclaracaoOK = false;
 		InfoSimbolo info;
 		
@@ -69,7 +69,7 @@ public class DeclVariavel implements Comando, DeclGlobal {
 				tabela.adicionarSimboloGlobal(idents.get(i), info);
 			} else{ 
 				retornoDeclaracaoOK = false; 
-				throw new LeituraException("O identificador "+ this.idents.get(i) + " já foi declarado.");
+				throw new ErroCompiladorException("O identificador "+ this.idents.get(i) + " já foi declarado.");
 			} 
 		} 
 		return retornoDeclaracaoOK;

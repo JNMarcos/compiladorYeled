@@ -1,7 +1,7 @@
 package compiler.tree.expressao;
 
 import compiler.semantica.TabelaSimbolosGeral;
-import compiler.syntax.LeituraException;
+import compiler.syntax.ErroCompiladorException;
 import compiler.tree.Tipo;
 
 public class CharLiteral implements Expressao {
@@ -26,7 +26,7 @@ public class CharLiteral implements Expressao {
 	}
 
 	@Override
-	public Tipo getTipo(TabelaSimbolosGeral tabela) throws LeituraException {
+	public Tipo getTipo(TabelaSimbolosGeral tabela) throws ErroCompiladorException {
 		// TODO Auto-generated method stub
 		return null;
 	}
